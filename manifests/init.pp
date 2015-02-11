@@ -33,6 +33,10 @@ define windows_clamav (
         source_permissions => ignore,
         content             => template('windows_clamav/freshclam.conf.erb')
       }->
+      exec { "Run ClamWin Refresh ${scan} ${every}":
+        command   => 'iex "c:\ProgramData\freshclam.exe"',
+        provider  => powershell,
+      }
       scheduled_task { "ClamAV Scan ${scan} ${every}":
         ensure    => present,
         enabled   => true,
