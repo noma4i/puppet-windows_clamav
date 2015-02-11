@@ -37,7 +37,7 @@ define windows_clamav (
         command   => 'iex "c:\ProgramData\freshclam.exe"',
         provider  => powershell,
       }
-      scheduled_task { "ClamAV Scan ${scan} ${every}":
+      scheduled_task { "ClamAV Scan me":
         ensure    => present,
         enabled   => true,
         command   => "${clam_path}\\clamscan.exe",
