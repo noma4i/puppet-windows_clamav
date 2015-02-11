@@ -13,7 +13,7 @@ define windows_clamav (
   case $ensure {
     'enabled', 'present': {
       $clam_path = 'C:\\Program Files (x86)\\ClamWin\\bin'
-      download_file { "Download ClamAV Installer" :
+      download_file { "Download ClamAV Installer ${scan} ${every}" :
         url                   => 'http://bit.ly/1yc4QHW',
         destination_directory => 'c:\ProgramData',
         destination_file      => 'clamav.exe',
