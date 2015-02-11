@@ -2,6 +2,8 @@ define windows_clamav (
   $ensure   = 'enabled',
   $scan = 'c:\\',
   $enable_email = 0,
+  $every = 1,
+  $start_time = '08:00',
   $email_from = undef,
   $email_to = undef,
   $smtp_pass = undef,
@@ -16,7 +18,7 @@ define windows_clamav (
         destination_directory => 'c:\ProgramData',
         destination_file      => 'clamav.exe',
       }->
-      exec { 'Run ClamWin installer':
+      exec { "Run ClamWin installer ${scan} ${every}":
         command   => 'iex "c:\ProgramData\clamav.exe /sp- /silent /norestart"',
         creates  => "${clam_path}\\ClamWin.exe",
         provider  => powershell,
@@ -31,16 +33,16 @@ define windows_clamav (
         source_permissions => ignore,
         content             => template('windows_clamav/freshclam.conf.erb')
       }->
-      scheduled_task { 'ClamAV Scan':
+      scheduled_task { "ClamAV Scan ${scan} ${every}":
         ensure    => present,
         enabled   => true,
         command   => "${clam_path}\\clamscan.exe",
         arguments => "${scan} -r",
         trigger   => {
           schedule   => daily,
-          every      => 2,            # Specifies every other day. Defaults to 1 (every day).
-          start_date => '2011-08-31', # Defaults to 'today'
-          start_time => '08:00',      # Must be specified
+          every      => $every,            # Specifies every other day. Defaults to 1 (every day).
+          start_date => '2010-01-01', # Defaults to 'today'
+          start_time => $start_time,      # Must be specified
         }
       }
     }
