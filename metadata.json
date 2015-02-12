@@ -1,6 +1,6 @@
 {
   "name": "noma4i-windows_clamav",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "author": "noma4i",
   "summary": "Install and manage ClamAV in Windows environment",
   "license": "Apache-2.0",
