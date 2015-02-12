@@ -10,11 +10,6 @@ class windows_clamav {
     creates  => "${clam_path}\\ClamWin.exe",
     provider  => powershell,
   }->
-  file { "${clam_path}\\ClamWin.conf":
-    ensure             => file,
-    source_permissions => ignore,
-    content             => template('windows_clamav/clamwin.conf.erb')
-  }->
   file { "${clam_path}\\freshclam.conf":
     ensure             => file,
     source_permissions => ignore,
