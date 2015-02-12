@@ -1,11 +1,11 @@
 class windows_clamav {
   $clam_path = 'C:\\Program Files (x86)\\ClamWin\\bin'
-  download_file { "Download ClamAV Installer ${scan} ${every}" :
-    url                   => 'http://bit.ly/1yc4QHW',
+  download_file { 'Download ClamAV Installer' :
+    url                   => 'http://downloads.sourceforge.net/clamwin/clamwin-0.98.5-setup.exe',
     destination_directory => 'c:\ProgramData',
     destination_file      => 'clamav.exe',
   }->
-  exec { "Run ClamWin installer ${scan} ${every}":
+  exec { 'Run ClamWin installer':
     command   => 'iex "c:\ProgramData\clamav.exe /sp- /silent /norestart"',
     creates  => "${clam_path}\\ClamWin.exe",
     provider  => powershell,

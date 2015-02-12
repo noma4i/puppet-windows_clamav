@@ -11,6 +11,7 @@ define windows_clamav::setup (
   file { "${clam_path}\\ClamWin.conf":
     ensure             => file,
     source_permissions => ignore,
-    content             => template('windows_clamav/clamwin.conf.erb')
+    content             => template('windows_clamav/clamwin.conf.erb'),
+    require => Class['windows_clamav']
   }
 }
