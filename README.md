@@ -1,3 +1,4 @@
+# WORK IN PROGRESS but this module is working atm
 # windows_clamav
 
 Puppet module to install and manage ClamAV.
